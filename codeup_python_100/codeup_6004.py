@@ -1,0 +1,4 @@
+'''이번에는 작은 따옴표(')(single quotation mark)가 들어있는
+출력문 연습을 해보자.'''
+
+print("'Hello'")
