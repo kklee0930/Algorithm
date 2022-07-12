@@ -5,5 +5,5 @@
 ...
 print(chr(n+1))'''
 
-a = int(input())
-print(ord(a + 1))
+a = ord(input()) #문자를 받아서 유니코드로 변환
+print(chr(a + 1)) #유니코드를 받아서 해당하는 문자를 출력
