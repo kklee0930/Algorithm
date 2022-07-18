@@ -13,3 +13,18 @@
 격자판을 채운 막대의 모양을 출력하는 프로그램을 만들어보자.
 '''
 
+temp_list = []
+a,b = map(int, input().split())
+i_list = []
+
+for i in range(a):
+    temp_list.append([])
+    for j in range(b):
+       temp_list[i].append('0')
+
+iteration = int(input())
+
+for i in range(iteration):
+    w,h,n,l = input().split()
+    
+        
