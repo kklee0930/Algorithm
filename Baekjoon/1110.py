@@ -1,30 +1,14 @@
-n = input()
+n = int(input())
 count = 0
+num = n
 
-
-if n < 10:
-    add_zero = '0' + str(n)
-    result = int(add_zero)
-    result = str(n)[1] + str(result)[1]
-    count += 1
+while True:
+    a = num // 10
+    b = num % 10
+    c = (a + b) % 10
     
-elif n >= 10:
-    result = str(n)[0] + str(n)[1]
-    result = str(n)[1] + str(sum)[1]
+    num = (10 * b) + c
     count += 1
-
-elif result < 10:
-    add_zero = '0' + str(n)
-    sum = str(n)[0] + str(n)[1]
-    result = str(n)[1] + str(sum)[1]
-    count += 1
-    
-elif result >= 10:
-    add_zero = '0' + str(n)
-    sum = str(n)[0] + str(n)[1]
-    result = str(n)[1] + str(sum)[1]
-    count += 1
-    
-elif sum == n:
-    print(count)
-    break
+    if num == n:
+        break
+print(count)
