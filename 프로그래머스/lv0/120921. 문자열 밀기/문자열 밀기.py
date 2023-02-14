@@ -5,9 +5,9 @@ def solution(A, B):
     A = list(A)
     B = list(B)
     while True:
-        A.insert(0, A[-1])
-        A.pop()
-        count += 1
+        A.insert(0, A[-1]) #ohello
+        A.pop() #hello 
+        count += 1 
         if count >= len(A):
             return -1
         if ''.join(A) == ''.join(B):
