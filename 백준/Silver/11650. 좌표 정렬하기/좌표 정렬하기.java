@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,13 +9,10 @@ public class Main {
         int tc = Integer.parseInt(br.readLine());
         int[][] array = new int[tc][2];
 
-        int[] tempArray;
         for(int i = 0; i < tc; i++){
-            tempArray = new int[2];
             st = new StringTokenizer(br.readLine());
-            tempArray[0] = Integer.parseInt(st.nextToken());
-            tempArray[1] = Integer.parseInt(st.nextToken());
-            array[i] = tempArray;
+            array[i][0] = Integer.parseInt(st.nextToken());
+            array[i][1] = Integer.parseInt(st.nextToken());
         }
 
         br.close();
@@ -33,7 +27,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         for(int[] arr: array){
-            sb.append(arr[0] + " " + arr[1] + "\n");
+            sb.append(arr[0]).append(" ").append(arr[1]).append("\n");
         }
 
         System.out.println(sb);
