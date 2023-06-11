@@ -20,10 +20,12 @@ public class Main {
         br.close();
 
         Arrays.sort(array);
+        StringBuilder sb = new StringBuilder();
 
         for(int number: array){
-            bw.write(Integer.toString(number)+"\n");
+            sb.append(number).append("\n");
         }
+        bw.write(String.valueOf(sb));
         bw.flush();
         bw.close();
 
