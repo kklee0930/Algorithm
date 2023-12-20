@@ -90,7 +90,7 @@ public class Main {
             int parentValue = heap.get(childIdx/2);
             int parentIdx = childIdx / 2;
             // 부모자식 서로 위치 변경
-            heap.set(parentIdx, num);
+            heap.set(parentIdx, heap.get(childIdx));
             heap.set(childIdx, parentValue);
 
             // 위치 변경돼서 인덱스 초기화
