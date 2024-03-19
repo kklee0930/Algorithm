@@ -7,7 +7,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val N = st.nextToken().toInt()
     val M = st.nextToken().toInt()
 
-    val hashmap = mutableMapOf<String, String>()
+    val hashmap = hashMapOf<String, String>()
     repeat(N) {
         val input = readLine().split(" ")
         hashmap[input[0]] = input[1]
