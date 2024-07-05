@@ -1,4 +1,5 @@
-number = int(input())
+import sys
 
-for j in range(1, 10):
-    print(f'{number} * {j} = {number*j}')
+n = int(sys.stdin.readline())
+for i in range(1, 10):
+    print(f"{n} * {i} = {n * i}")
