@@ -1,12 +1,10 @@
 import sys
 
-my_list = []
+lst = []
+for _ in range(int(input())):
+    lst.append(int(sys.stdin.readline()))
 
-T = int(input())
-for tc in range(1, T+1):
-    n = int(sys.stdin.readline())
-    my_list.append(n)
-my_list.sort()
+lst.sort()
 
-for i in my_list:
-    print(i)
+for n in lst:
+    print(n)
