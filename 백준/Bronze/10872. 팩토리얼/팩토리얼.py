@@ -1,5 +1,8 @@
-N = int(input())
-result = 1
-for i in range(N, 0, -1):
-    result *= i
-print(result)
+import sys
+
+def factorial(N):
+    if N == 0:
+        return 1
+    return N * factorial(N - 1)
+
+print(factorial(int(sys.stdin.readline())))
