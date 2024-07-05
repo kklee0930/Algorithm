@@ -1,2 +1,4 @@
-N = ord(input())
-print(N)
+import sys
+
+s = sys.stdin.readline().strip()
+print(ord(s))
