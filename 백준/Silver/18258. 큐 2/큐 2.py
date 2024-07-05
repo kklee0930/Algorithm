@@ -1,35 +1,41 @@
+import sys
 from collections import deque
-from sys import stdin
+
 queue = deque()
-for _ in range(int(stdin.readline())):
-    cmd = stdin.readline().split()
-    
-    if 'push' in cmd:
-        queue.append(cmd[1])
 
-    elif 'pop' in cmd:
-        if queue:
-            print(queue.popleft())
-        else:
-            print(-1)
+def cmd_executor(cmd : list):
+    global queue
+    match cmd[0]:
+        case "push":
+            queue.append(cmd[1])
+            
+        case "pop":
+            if not queue:
+                print(-1)
+            else:
+                print(queue.popleft())
+                
+        case "size":
+            print(len(queue))
+            
+        case "empty":
+            if not queue:
+                print(1)
+            else:
+                print(0)
+                
+        case "front":
+            if not queue:
+                print(-1)
+            else:
+                print(queue[0])
 
-    elif 'size' in cmd:
-        print(len(queue))
+        case "back":
+            if not queue:
+                print(-1)
+            else:
+                print(queue[-1])
 
-    elif 'empty' in cmd:
-        if queue:
-            print(0)
-        else:
-            print(1)
-
-    elif 'front' in cmd:
-        if queue:
-            print(queue[0])
-        else:
-            print(-1)
-    
-    elif 'back' in cmd:
-        if queue:
-            print(queue[-1])
-        else:
-            print(-1)
+for _ in range(int(sys.stdin.readline())):
+    input_ = sys.stdin.readline().strip().split()
+    cmd_executor(input_)
