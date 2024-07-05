@@ -1,8 +1,12 @@
-num_list = []
-for i in range(9):
-    a = int(input())
-    num_list.append(a)
+import sys
 
-max_num = max(num_list)
-print(max_num)
-print(num_list.index(max_num) + 1)
+dict = {}
+
+for i in range(1, 10):
+    num = int(sys.stdin.readline())
+    dict[num] = i
+
+max_val = max(dict.keys())
+
+print(max_val)
+print(dict[max_val])
