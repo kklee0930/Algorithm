@@ -1,21 +1,23 @@
-total = 0
-lst = []
+import sys
+
+midgets = list()
+
 for _ in range(9):
-    height = int(input())
-    lst.append(height)
-    
-# 총 sum은 140인데 일곱명이 100이 되어야 하므로 두명이 40될경우 제거
-total = sum(lst)
+    midgets.append(int(sys.stdin.readline()))
+
+extra_height = sum(midgets) - 100
+
 for i in range(9):
-    for j in range(i+1, 9):
-        if lst[i] + lst[j] == total - 100:
-            num1, num2 = lst[i], lst[j] 
-            lst.remove(num1)
-            lst.remove(num2)
-            lst.sort()
-            
-            for i in lst:
-                print(i)
+    for j in range(i + 1, 9):
+        if midgets[i] + midgets[j] == extra_height:
+            n1, n2 = midgets[i], midgets[j]
+            midgets.remove(n1)
+            midgets.remove(n2)
             break
-    if len(lst) < 9:
+    if len(midgets) < 9:
         break
+            
+midgets.sort()
+
+for height in midgets:
+    print(height)
