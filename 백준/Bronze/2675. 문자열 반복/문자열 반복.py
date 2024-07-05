@@ -1,9 +1,9 @@
-T = int(input())
-for tc in range(1, T+1):
-    S,R = input().split()
-    S = int(S)
-    R = str(R)
-    sum = ''
-    for char in R:
-        sum = sum + (char * S)
-    print(sum)
+import sys
+
+T = int(sys.stdin.readline())
+
+for i in range(T):
+    r, s = input().split()
+    for j in s:
+        print(int(r) * j, end="")
+    print()
