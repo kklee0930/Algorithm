@@ -1,16 +1,16 @@
+import sys
 from collections import deque
-N,K = map(int,input().split())
-dq = deque()
-result = []
 
-for i in range(1,N+1): #1,2,3,4,5,6,7
-    dq.append(i)
-    
-while dq:
-    for i in range(K-1): 
-        dq.append(dq.popleft()) 
-    result.append(dq.popleft())
-    
-print('<', end='')
-a = ', '.join(map(str, result))
-print(a + '>')
+N, K = map(int, sys.stdin.readline().split())
+queue = deque(i for i in range(1, N+1))
+answer = list()
+
+while queue:
+    for i in range(K):
+        n = queue.popleft()
+        if i != K - 1:
+            queue.append(n)
+        else:
+            answer.append(str(n))
+            
+print(f"<{', '.join(answer)}>")
