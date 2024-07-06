@@ -1,22 +1,24 @@
-from sys import stdin
+import sys
 
-N = int(stdin.readline())
-targets = sorted(map(int, stdin.readline().split())) # 이 리스트에서 탐색한다.
-M = int(stdin.readline())
-list_ = map(int, stdin.readline().split()) # for loop문을 통해서 해당 원소가 targets 리스트에 존재하는지 확인한다.
+N = int(sys.stdin.readline())
+target_list = sorted(map(int, sys.stdin.readline().strip().split()))
 
-def binarySearch(targets, element, start, end):
-    if start > end:
-        return 0
-    m = (start + end) // 2 # 중간점 지정
-    if element == targets[m]: # list_의 element가 탐색구간의 중간점 값과 같으면 출력
-        return 1
-    elif element < targets[m]: # 작으면 종료점 조정 (중간점 - 1)
-        return binarySearch(targets, element, start, m-1)
-    else: # 크면 시작점 조정 (중간점 + 1)
-        return binarySearch(targets, element, m+1, end)
+M = int(sys.stdin.readline())
+iter_list = map(int, sys.stdin.readline().strip().split())
+
+def binary_search(start, end, num):
+    while start <= end:
+        mid = (start + end) // 2
+
+        if target_list[mid] == num:
+            return 1
+            
+        elif target_list[mid] < num:
+            start = mid + 1
+            
+        else:
+            end = mid - 1
+    return 0
     
-for element in list_: # 이진탐색 위해 시작점과 종료점 설정
-    start = 0 
-    end = len(targets) - 1
-    print(binarySearch(targets, element, start, end))
+for num in iter_list:
+    print(binary_search(0, N-1, num))
