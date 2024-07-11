@@ -1,39 +1,38 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 
-row, col = map(int, input().split())
-graph = []
+n, m = map(int, input().split())
+graph = [list(map(int, input().strip())) for _ in range(n)]
 
-for i in range(row):
-    graph.append(list(map(int, input())))
-# print(graph)
-        
-def bfs(x,y):
-    # 델타탐색 좌표 정의
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
-
+def bfs(x, y):
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
+    
     queue = deque([])
-    queue.append((x, y))
+    queue.append((x,y))
     
     while queue:
         x, y = queue.popleft()
         
-        # 델타 좌표 이동
+        # 델타 탐색
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+            nx = dx[i] + x
+            ny = dy[i] + y
         
-            # 좌표 벗어나지 않게 범위 제한
-            if nx < 0 or nx >= row or ny < 0 or ny >= col:
+            # 범위 체크
+            if nx < 0 or ny < 0 or nx >= n or ny >= m:
                 continue
-            
+        
+            # 벽인지 체크
             if graph[nx][ny] == 0:
                 continue
-            
+        
+            # 이동 횟수 갱신
             if graph[nx][ny] == 1:
                 graph[nx][ny] = graph[x][y] + 1
-                queue.append((nx,ny))
+                queue.append((nx, ny))
     
-    return graph[row-1][col-1]
-                    
-print(bfs(0,0))
+    return graph[n-1][m-1]
+    
+print(bfs(0, 0))
