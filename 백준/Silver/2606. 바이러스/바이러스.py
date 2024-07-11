@@ -1,25 +1,26 @@
-node = int(input()) # node 갯수
-vertex = int(input()) # vertex 갯수
-graph = [[] for i in range(node + 1)]
-visited = [0] * (node + 1)
-# 인접 리스트 만들기
-for _ in range(vertex): # vertex 갯수만큼 loop
-    v1, v2 = map(int, input().split()) # 서로 연결된 node이므로
-    # 각 노드의 리스트에 값을 저장
-    graph[v1].append(v2)
-    graph[v2].append(v1)
+import sys
+input = sys.stdin.readline
 
-# 1번 컴퓨터를 시작 노드로 DFS 진행
-def dfs(start):
-    stack = [start]
-    visited[start] = 1
-    
-    while stack: 
-        current = stack.pop()
+com = int(input()) # 컴퓨터 대수
+pair = int(input()) # 컴퓨터 쌍
+graph = [[] for _ in range(com+1)]
+visited = [0] * (com+1)
+cnt = 0
 
-        for adj in graph[current]: 
-            if not visited[adj]: 
-                visited[adj] = 1
-                stack.append(adj)
-    return sum(visited) - 1
-print(dfs(1))
+def dfs(n: int):
+    global cnt
+    for num in graph[n]:
+        if visited[num] == 0:
+            visited[num] = 1
+            cnt += 1
+            dfs(num)
+    return
+
+for _ in range(pair):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+visited[1] = 1
+dfs(1)
+print(cnt)
