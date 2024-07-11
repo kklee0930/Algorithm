@@ -1,38 +1,48 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 
-node, vertex, start = map(int, input().split())
+def dfs(x: int):
+    print(x, end=" ")
+    
+    visited[x] = 1
+    nodes = graph[x]
+    
+    # 방문하지 않은 경우에 재귀
+    for n in nodes:
+        if not visited[n]:
+            dfs(n)
+    
+def bfs(x: int):
+    queue = deque([x])
+    visited[x] = 1
+    
+    while queue:
+        curr = queue.popleft()
+        print(curr, end=" ")
+        nodes = graph[curr]
+        # 방문하지 않은 경우 순차적으로 큐에 추가
+        for n in nodes:
+            if not visited[n]:
+                queue.append(n)
+                visited[n] = 1
 
-visited = [0] * (node + 1)
+n, m, v = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
 
-adjacent = [[] for _ in range(node+1)]
+for _ in range(m):
+    a, b = map(int, input().split())
+    # 양방향 그래프이기 때문에 양쪽으로 추가
+    graph[a].append(b)
+    graph[b].append(a)
 
-for i in range(vertex):
-    a,b = map(int, input().split())
-    adjacent[a].append(b)
-    adjacent[b].append(a)
-
-for i in range(len(adjacent)):
-    adjacent[i].sort()
-
-def dfs(start):
-    print(start, end=' ')  
-    visited[start] = 1
-    for i in adjacent[start]:
-        if not visited[i]:
-            dfs(i)
-
-def bfs(start):
-    queue = deque([start]) #queue 생성
-    visited[start] = 1 # start지점을 visited 처리
-    while queue: # queue가 빌때까지
-        current = queue.popleft() # 왼쪽 요소를 current
-        print(current, end=' ')
-        for i in adjacent[current]:
-            if not visited[i]:
-                queue.append(i)
-                visited[i] = 1
-            
-dfs(start)
-visited = [0] * (node + 1)
+# 꼭 정렬 해줘야함.
+for i in range(len(graph)):
+    graph[i].sort()
+    
+# visited 초기화
+visited = [0] * (n + 1)
+dfs(v)
 print()
-bfs(start)
+visited = [0] * (n + 1)
+bfs(v)
