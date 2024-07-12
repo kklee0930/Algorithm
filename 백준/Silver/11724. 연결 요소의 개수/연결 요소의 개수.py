@@ -1,31 +1,27 @@
 import sys
-sys.setrecursionlimit(10000)  
+sys.setrecursionlimit(10**5)
 input = sys.stdin.readline
 
-def dfs(node):
-    visited[node] = 1
-    for i in graph[node]:
-        if not visited[i]:
-            dfs(i)
+n, m = map(int, input().split())
+graph = [[] for _ in range(n+1)]
+visited = [0 for _ in range(n+1)]
 
-# 정점과 간선 입력 받음
-node, vertex = map(int, input().split())
+for i in range(m):
+    u, v = map(int, input().split())
+    graph[u].append(v)
+    graph[v].append(u)
 
-# 방문여부확인을 위한 리스트 생성(인덱스로 접근할 것이기 때문에 node + 1 곱)
-visited = [0] * (node + 1)
+cnt = 0
+def dfs(node: int):
+    for n in graph[node]:
+        if not visited[n]:
+            visited[n] = 1
+            dfs(n)
 
-# 마찬가지로 node + 1 곱
-graph = [[] for _ in range(node+1)]
-
-count = 0
-
-for _ in range(vertex):
-    v1,v2 = map(int,input().split())
-    graph[v1].append(v2)
-    graph[v2].append(v1)
-
-for i in range(1, node+1):
-    if not visited[i]:
-        dfs(i)
-        count += 1
-print(count)
+for num in range(1, n + 1):
+    if not visited[num]:
+        visited[num] = 1
+        cnt += 1
+        dfs(num)
+        
+print(cnt)
