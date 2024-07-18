@@ -1,39 +1,46 @@
 import sys
-sys.setrecursionlimit(100000)
+from collections import deque
 
-# 행렬 생성
-N = int(input())
-matrix = [[] for _ in range(N)]
-for i in range(N):
-    danji = input()
-    for j in danji:
-        matrix[i].append(int(j))
+input = sys.stdin.readline
 
-def dfs(x, y):
-    global count
-    # 델타탐색 좌표
-    dx = [0,0,1,-1]
-    dy = [1,-1,0,0]
+N = int(input().strip()) # 지도 크기
+graph = [list(map(int, input().strip())) for _ in range(N)] # 그래프
+visited = [[0] * N for _ in range(N)] # 방문여부
+
+def bfs(r: int, c: int, cnt: int):
     
-    matrix[x][y] = 0
-    for i in range(4):
-        if -1 < x + dx[i] < N and -1 < y + dy[i] < N:
-            nx = x + dx[i]
-            ny = y + dy[i]
-            
-            if matrix[nx][ny] == 1:
-                count += 1
-                dfs(nx,ny)
+    dx = [0, 0, -1, 1]
+    dy = [1, -1, 0, 0]
+    
+    queue = deque([])
+    queue.append((r, c))
+    
+    while queue:
+        row, col = queue.popleft()
+        
+        # 좌우상하 탐색
+        for i in range(4):
+            nx = dx[i] + row
+            ny = dy[i] + col
+
+            # 범위 체크
+            if 0 <= nx < N and 0 <= ny < N:
+                # 0이거나 방문했으면 continue
+                if not graph[nx][ny] or visited[nx][ny]: continue
+                # 아니면 큐에 추가 & cnt++
+                visited[nx][ny] = 1
+                cnt += 1
+                queue.append((nx, ny))
+    return cnt
+
 answer = []
 for i in range(N):
     for j in range(N):
-        count = 0
-        if matrix[i][j] == 1:
-            count += 1
-            dfs(i, j)
-            answer.append(count)
-        
+        # 방문하지 않았고 좌표 값이 1이면
+        if not visited[i][j] and graph[i][j]:
+            visited[i][j] = 1
+            answer.append(bfs(i, j, 1))
+            
 print(len(answer))
-answer.sort()
-for i in answer:
-    print(i)
+for n in sorted(answer):
+    print(n)
