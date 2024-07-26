@@ -1,84 +1,88 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-
-    static class Node {
-        char current;
-        Node left;
-        Node right;
-
-        Node(char current, Node left, Node right) {
-            this.current = current;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
+class Main {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
-        Node parent  = new Node('A', null, null); // 부모노드
-
-        for(int i = 0; i < n; i++) {
+        int N = Integer.parseInt(br.readLine());
+        Node root = new Node('A', null, null); // 루트 노드 생성
+        
+        for(int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            char current = st.nextToken().charAt(0); // 현재 노드
-            char left = st.nextToken().charAt(0); // 현재 노드의 왼쪽 자식노드
-            char right = st.nextToken().charAt(0); // 현재 노드의 오른쪽 자식노드
-
-            insertNode(parent, current, left, right);
+            char current = st.nextToken().charAt(0); // 현재 입력 노드
+            char left = st.nextToken().charAt(0); // 왼쪽 자식 노드
+            char right = st.nextToken().charAt(0); // 오른쪽 자식 노드
+            
+            insertNode(root, current, left, right);
         }
         br.close();
 
-        preOrder(parent);
+        preOrder(root);
         System.out.println();
-        inOrder(parent);
+        inOrder(root);
         System.out.println();
-        postOrder(parent);
+        postOrder(root);
     }
-    static void insertNode(Node parent, char root, char left, char right) {
-        // 부모노드가 현재 노드와 같으면
-        if(parent.current == root) {
-            parent.left = left == '.' ? null : new Node(left, null, null);
-            parent.right = right == '.' ? null : new Node(right, null, null);
+
+    static void insertNode(Node root, char current, char left, char right) {
+        // root 노드와 current 노드의 값이 같다면 left, right를 각각 자식노드로 추가
+        if(root.parent == current) {
+            root.left = left == '.' ? null : new Node(left, null, null);
+            root.right = right == '.' ? null : new Node(right, null, null);
         }
-        // 같지 않다면 비어있지 않은 왼쪽/오른쪽 자식노드를 parent값으로 놓고 재귀
+
+        // 같지 않다면 null이 아닌 왼쪽/오른쪽 자식노드를 부모노드로 놓고 재귀
         else {
-            if(parent.left != null) {
-                insertNode(parent.left, root, left, right);
+            if(root.left != null) {
+                insertNode(root.left, current, left, right);
             }
-            if(parent.right != null) {
-                insertNode(parent.right, root, left, right);
+            if(root.right != null) {
+                insertNode(root.right, current, left, right);
             }
         }
     }
 
+    // 전위 순회
     static void preOrder(Node node) {
         if(node == null) {
             return;
         }
-        System.out.print(node.current);
+        System.out.print(node.parent);
         preOrder(node.left);
         preOrder(node.right);
     }
 
+    // 중위 순회
     static void inOrder(Node node) {
         if(node == null) {
             return;
         }
         inOrder(node.left);
-        System.out.print(node.current);
+        System.out.print(node.parent);
         inOrder(node.right);
     }
 
+    // 후위 순회
     static void postOrder(Node node) {
         if(node == null) {
             return;
         }
         postOrder(node.left);
         postOrder(node.right);
-        System.out.print(node.current);
+        System.out.print(node.parent);
+    }
+
+    static class Node {
+        char parent;
+        Node left; // 왼쪽 자식노드
+        Node right; // 오른쪽 자식노드
+
+        Node(char parent, Node right, Node left) {
+            this.parent = parent;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
