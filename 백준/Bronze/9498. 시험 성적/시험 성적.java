@@ -1,19 +1,32 @@
-import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int score = sc.nextInt();
-        if(score >= 90){
-            System.out.println("A");
-        } else if (score >= 80 && score <= 89){
-            System.out.println("B");
-        } else if (score >= 70 && score <=79){
-            System.out.println("C");
-        } else if (score >= 60 && score <=69){
-            System.out.println("D");
-        } else {
-            System.out.println("F");
-        }
-    }
+import java.io.*;
+import java.util.*;
 
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        int score = Integer.parseInt(br.readLine());
+        br.close();
+        
+        if (score >= 90) {
+            bw.write("A");
+        }
+        else if (score >= 80 && score <= 89) {
+            bw.write("B");
+        }
+        else if (score >= 70 && score <= 79) {
+            bw.write("C");
+        }
+        else if (score >= 60 && score <= 69) {
+            bw.write("D");
+        }
+        else {
+            bw.write("F");
+        }
+        
+        br.close();
+        bw.flush();
+        bw.close();
+    }
 }
